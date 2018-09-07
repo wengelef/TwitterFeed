@@ -3,7 +3,7 @@ package test.wengelef.twitterfeed.locationtrends.data
 import com.google.gson.annotations.SerializedName
 
 interface TwitterTrendsService {
-    fun getTrendsForWoed(woedId: Int, authToken: String, onSuccess: (List<TrendItem>) -> Unit)
+    fun getTrendsForWoed(woedId: Int = 1, authToken: String, onSuccess: (List<TrendItem>) -> Unit)
 }
 
 data class TwitterTrendsResponse(

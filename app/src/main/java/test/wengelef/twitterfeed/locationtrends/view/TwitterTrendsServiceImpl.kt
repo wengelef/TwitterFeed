@@ -16,14 +16,17 @@ class TwitterTrendsServiceImpl(private val context: Context) : TwitterTrendsServ
         Volley.newRequestQueue(context)
                 .add(GsonRequest(
                         requestUrl,
-                        TwitterTrendsResponse::class.java,
-                        mutableMapOf("Authorization:" to "Bearer $authToken"),
+                        Array<TwitterTrendsResponse>::class.java,
+                        mutableMapOf("Authorization" to "Bearer $authToken"),
                         Response.Listener { trendsResponse ->
-                            Log.e("TwitterService", "response : $trendsResponse")
-                            onSuccess.invoke(trendsResponse.trends)
+                            if (trendsResponse.isEmpty()) {
+                                onSuccess.invoke(emptyList())
+                            } else {
+                                onSuccess.invoke(trendsResponse.first().trends)
+                            }
                         },
                         Response.ErrorListener { error ->
-
+                            Log.e("TwitterService", "response : $error")
                         }
                 ))
     }
