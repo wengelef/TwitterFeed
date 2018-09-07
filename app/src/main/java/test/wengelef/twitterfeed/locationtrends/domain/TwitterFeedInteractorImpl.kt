@@ -13,7 +13,7 @@ class TwitterFeedInteractorImpl(
             authenticationRepository.authenticate { authenticationState ->
                 when (authenticationState) {
                     is AuthenticationState.Authenticated -> {
-                        twitterTrendsService.getTrendsForWoed(woedId, authenticationState.token) { items ->
+                        twitterTrendsService.getTrendsForWoed(1, authenticationState.token) { items ->
                             result.invoke(TrendsResult.Success(items))
                         }
                     }
